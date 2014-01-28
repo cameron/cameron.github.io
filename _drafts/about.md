@@ -9,22 +9,22 @@ image:
   feature: about.feature.jpg
 ---
 
-All in all, Portland was not a bad place to start.
+*An outline of unwritten posts*
+
+Portland was a great place to start.
 
 At PayPal, I built something that made other people's lives better.
 
-At Slide, I learned teamwork as a technology professional.
+In silence, I separated solitude from loneliness.
 
-In silence, I separated loneliness from solitude.
+At Google, I ate my feelings.
 
-At Google, I tasted the birth and death of passion.
+In a startup with friends, I learned the importance of purpose.
 
-In the company of friends, I learned the importance of purpose.
+On the parched desert floor, my purpose became clear.
 
-On the desert floor, my purpose became clear.
+On a sojourn in India, I sought the company of seekers.
 
-Walking with strangers, I learned the power of choice.
-
-At Hack Reactor, I discovered I wasn't everything I thought I was, so I invalidated my cache.
+At Hack Reactor, I was surprised by what I found.
 
 Through [Siliconfidential](http://www.siliconfidential.com), I share.
