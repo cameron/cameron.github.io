@@ -1,23 +1,23 @@
-title:            Site Title
-tagline:          A short tagline
-description:      Describe your website.
+title:            Siliconfidential
+tagline:          On web development.
+description:      
 # Your site's domain goes here. Leave localhost server or blank when working locally.
 url:              http://localhost:4000
 
 # Owner/author information
 owner:
-  name:           Your Name
+  name:           Cameron Boehmer
   avatar:         bio-photo.jpg
-  bio:            "Describe your self."
-  email:          your@email.com
+  bio:            "In every moment a choice, in every choice a step. I like to take walks."
+  email:          cameron.boehmer@gmail.com
   # Social networking links are used in author-bio sidebar. Update and remove as you like.
-  twitter:        
-  facebook:       
-  github:         
+  twitter:        camron
+  facebook:       cameronboehmer
+  github:         cameronboehmer
   linkedin:       
   instagram:      
   lastfm:         
-  tumblr:         
+  tumblr:         omology
   # For Google Authorship https://plus.google.com/authorship
   google_plus:    
 
@@ -34,14 +34,9 @@ links:
     url: /about/
   - title: Posts
     url: /posts/
-  - title: Theme Setup
-    url: /theme-setup/
-  - title: Made Mistakes
-    url: http://mademistakes.com
-    external: true
 
 # http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
-timezone:    America/New_York
+timezone:    America/Los_Angeles
 future:      true
 pygments:    true
 markdown:    kramdown
