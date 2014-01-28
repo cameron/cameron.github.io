@@ -53,6 +53,9 @@ What if it were as simple as saying: `net <~ revenue - expenses`? `net` should *
 
 ### The $scope.$watch() that will haunt your dreams
 
+
+![Cyriak, Christmas 2012](/images/post.cyriak-christmas.gif)
+
 Merry Christmas.
 
 {% highlight js %}

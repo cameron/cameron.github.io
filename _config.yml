@@ -1,14 +1,13 @@
 title:            Siliconfidential
 tagline:          On web development.
 description:      
-# Your site's domain goes here. Leave localhost server or blank when working locally.
 url:              http://www.siliconfidential.com
 
 # Owner/author information
 owner:
   name:           Cameron Boehmer
   avatar:         bio-photo.jpg
-  bio:            "In every moment a choice, in every choice a step. I like to take walks."
+  bio:            "In every moment, a choice; in every choice, a step. I like to take walks."
   email:          cameron.boehmer@gmail.com
   # Social networking links are used in author-bio sidebar. Update and remove as you like.
   twitter:        camron
@@ -22,7 +21,7 @@ owner:
   google_plus:    
 
 # Analytics and webmaster tools stuff goes here
-google_analytics:   
+google_analytics:   UA-47551041-1
 google_verify:      
 # https://ssl.bing.com/webmaster/configure/verify/ownership Option 2 content= goes here
 bing_verify:        
