@@ -8,6 +8,8 @@ image:
   feature: post.bliss.jpg
 ---
 
+*This posts assumes some familiarity with Docker&mdash;it's a practical guide to a workflow on OS X.*
+
 ## The Problem
 Docker is hot. It represents a significant addition to the second derivative of the state of our art. And while there are plenty of tutorials on using Docker floating around, none of them left me with all of the functionality I needed, or a clear picture of how to do real work. I have been frustrated, tickled, and tantalized. Docker, you were a real tease&mdash;until today.
 
