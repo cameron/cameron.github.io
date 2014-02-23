@@ -6,12 +6,12 @@ description: "Tired of stuffing your application environments full of IPs and po
 category: articles
 tags: [devops, docker, dns]
 image:
-  feature: post.cowboy-hat.jpg
+  feature: post.wallless-room.jpg
 ---
 
 After publishing [Cooking with Docker and CoreOS on OS X](/articles/docker-coreos-osx/), I discovered I wanted a cleaner service discovery mechanism than `-link` offered.
 
-And then I found [Skydock](https://github.com/crosbymichael/skydock), and [Vagrant Skydocking](http://www.asbjornenge.com/wwc/vagrant_skydocking.html). The former is Michael Crosby's approach to using SkyDNS with docker containers, and the latter is Asborn Enge's adaption to doing so inside a Vagrant VM such that your services' domain names resolve from the Vagrant host (in my case, OS X).
+And then I found [Skydock](https://github.com/crosbymichael/skydock), and [Vagrant Skydocking](http://www.asbjornenge.com/wwc/vagrant_skydocking.html). The former is Michael Crosby's approach to using SkyDNS for service discovery with docker containers, and the latter is Asborn Enge's adaption to doing so inside a Vagrant VM such that your services' domain names resolve from the Vagrant host (in my case, OS X).
 
 When you're done, you'll run containers like this:
 
