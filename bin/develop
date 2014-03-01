@@ -1,0 +1,3 @@
+docker stop blog0
+docker rm blog0
+docker run --name blog0 -i -t -P -v /home/core/share/siliconfidential.com/:/src camron/blog
