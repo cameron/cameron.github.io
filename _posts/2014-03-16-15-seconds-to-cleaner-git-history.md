@@ -39,7 +39,7 @@ pick 9761c6c [make it stop!]
 {% endhighlight %}
 
 
-Here, we see each commit and its message prefixed with a command (all defaulted to `pick`, which means "keep this one as-is"). At this point, we could save and exit, and git wouldn't make any changes to our commit history, but that's not why we're here, so let's do some cleanup:
+Here, we see each commit and its message prefixed with a command (all defaulted to `pick`, which means *keep this one as-is*). At this point, we could save and exit, and git wouldn't make any changes to our commit history, but that's not why we're here, so let's do some cleanup:
 
 {% highlight bash %}
 pick addc22d [reasonable commit]
@@ -54,7 +54,7 @@ f 05fa5c4 [...]
 f 9761c6c [make it stop!]
 {% endhighlight %}
 
-Here, we've changed the command prefix for all but the last of the messy commits to `f`, which is short for `fixup`, and means "merge this one into the previous, and discard its commit message". For the last of the messy commits, we use `r`, short for `reword`, which will cause the rebase process to halt and give us a chance to edit the message for that commit, which will then include all of the `fixup`-marked commits below it.
+Here, we've changed the command prefix for all but the last of the messy commits to `f`, which is short for `fixup`, and means *merge this one into the previous, and discard its commit message*. For the last of the messy commits, we use `r`, short for `reword`, which will cause the rebase process to halt and give us a chance to edit the message for that commit, which will then include all of the `fixup`-marked commits below it.
 
 So, go ahead and save/exit, and your `$EDITOR` will open once again.
 
