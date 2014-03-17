@@ -43,7 +43,7 @@ Here, we see each commit and its message prefixed with a command (all defaulted 
 
 {% highlight bash %}
 pick addc22d [reasonable commit]
-pick b432b46 [questionable commit]
+r b432b46 [questionable commit]
 f c146469 [pretty shaky commit]
 f 63b68c4 [gloves are off]
 f ae02f1c [oh god]
@@ -54,12 +54,13 @@ f 05fa5c4 [...]
 f 9761c6c [make it stop!]
 {% endhighlight %}
 
-Here, we've changed the command prefix for all but the last of the messy commits to `f`, which is short for `fixup`, and means "merge this one into the previous, and discard its commit message".
+Here, we've changed the command prefix for all but the last of the messy commits to `f`, which is short for `fixup`, and means "merge this one into the previous, and discard its commit message". For the last of the messy commits, we use `r`, short for `reword`, which will cause the rebase process to halt and give us a chance to edit the message for that commit, which will then include all of the `fixup`-marked commits below it.
 
-Now, go ahead and save/exit, and your `$EDITOR` will open once again, this time with the commit message prompt, giving you a chance to edit the message for `[questionable commit]`, which now has all of the commits marked `f` rolled into it.
+So, go ahead and save/exit, and your `$EDITOR` will open once again.
 
 {% highlight bash %}
-[questionable commit]
+# [questionable commit]
+under duress, i must confess, this commit became a mess
 
 # Please enter the commit message for your changes. Lines starting
 # with '#' will be ignored, and an empty message aborts the commit.
@@ -73,7 +74,7 @@ Now, go ahead and save/exit, and your `$EDITOR` will open once again, this time 
 # ...
 {% endhighlight %}
 
-Write something (un)apologetic about the tangle of code that one commit now claims, and save/exit. You should see `Successfully rebased and updated refs/heads/master.` after output indicating what kind of changes the rebase is making.
+After writing your apologia, save/exit, and you should see `Successfully rebased and updated refs/heads/master.` following some output indicating what kind of changes the rebase is making.
 
 ## Caveat Emptor
 
@@ -83,7 +84,7 @@ Plain and simple, do not rebase commits that you've already pushed (unless you a
 
 ## Further reading
 
-There's a lot implied by this little cleanup operation, namely the whole underworld of `rebase`. (If you're not already, you should be using `git pull --rebase` almost exlcusively in your daily workflow to avoid introducing unnecessary merge commits.)
+There's a lot implied by this little cleanup operation, namely the whole underworld of `rebase`, which can be incredibly useful for resolving complex history problems. (If you're not already, you should be using `git pull --rebase` almost exlcusively in your daily workflow to avoid introducing unnecessary merge commits.)
 
 In particular, we didn't touch on the rest of the interactive rebase commands:
 
