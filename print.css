@@ -1,0 +1,12 @@
+@page
+{
+    size:  auto;
+    margin-top: 10mm;
+    margin-bottom: 10mm;
+    margin-left: 15mm;
+    margin-right: 25mm;
+}
+
+.entry {
+  page-break-inside: avoid;
+}
