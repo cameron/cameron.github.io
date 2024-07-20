@@ -114,3 +114,37 @@ li {
   list-style-type: none;
   padding-bottom: .6em;
 }
+
+.right-panel {
+  position: absolute;
+  top: 76px;
+  left: 750px;
+}
+
+h4 {
+  color: #444;
+  font-size: .8em;
+  margin-bottom: .4em;
+  text-transform: uppercase;
+  letter-spacing: .07em;
+}
+
+.right-panel ul {
+  margin-top: 1.5em;
+}
+
+.right-panel li p {
+  color: rgba(0,0,0,.6);
+  font-size: .9em;
+  margin-top: .2em;
+}
+
+a {
+  color: #336699;
+}
+
+.printable {
+  margin-top: 12em;
+  color: rgba(0,0,0,.3);
+  font-style: italic;
+}
