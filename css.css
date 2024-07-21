@@ -147,4 +147,57 @@ a {
   margin-top: 12em;
   color: rgba(0,0,0,.3);
   font-style: italic;
+  cursor: pointer;
+}
+
+.mobile-only {
+  display: none;
+}
+
+@media only screen and (max-width: 400px) {
+  html {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    width: calc(100% - 2em);
+    margin: 1em;
+    overflow-x: hidden;
+  }
+
+  .mobile-only {
+    display: block;
+  }
+
+  .right-panel {
+    position: relative;
+    top: 0;
+    left: 0;
+  }
+
+  .label {
+    position: relative;
+    top: 0;
+    left: 0;
+    text-align: left;
+    margin-bottom: .5em;
+    width: 100%;
+  }
+
+  .label h3 {
+    display: inline;
+    padding-right: .6em;
+  }
+
+  .entry {
+    padding-bottom: 23px;
+  }
+
+  .printable {
+    margin: 0;
+    padding: 3em;
+    text-align: center;
+  }
 }
