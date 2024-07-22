@@ -7,6 +7,10 @@
     margin-right: 25mm;
 }
 
+body {
+  margin-left: 170px;
+}
+
 .entry {
   page-break-inside: avoid;
 }
