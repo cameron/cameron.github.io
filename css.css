@@ -1,5 +1,6 @@
 body {
-  margin-left: 170px;
+  margin-left: auto;
+  margin-right: auto;
   margin-top: 50px;
   margin-bottom: 60px;
   width: 600px;
@@ -118,7 +119,7 @@ li {
 .right-panel {
   position: absolute;
   top: 76px;
-  left: 750px;
+  left: 700px;
 }
 
 h4 {
