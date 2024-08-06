@@ -18,3 +18,7 @@ body {
 .right-panel {
   display: none;
 }
+
+.left-panel {
+  display: none;
+}
