@@ -1,0 +1,31 @@
+body {
+  font-size: 1.4em;
+  width: 630px;
+}
+
+.header {
+  font-size: .9em;
+  text-align: right;
+  margin-bottom: 2em;
+}
+
+.header h4 {
+  margin: 0;
+}
+
+ul {
+  margin-left: 30px;
+}
+
+li {
+  list-style-type: disc;
+}
+
+.signature {
+  text-align: left;
+  margin-left: 60%;
+}
+
+.signature em {
+  color: black;
+}

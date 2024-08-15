@@ -1,0 +1,13 @@
+@page
+{
+    size:  auto;
+    margin: 7mm auto;
+}
+
+
+body {
+  width: 700px;
+  margin: 0 !important; /* for some reason, using margin doesn't result in centered content */
+  padding: 2em 10em;
+  font-size: 1.25em;
+}
