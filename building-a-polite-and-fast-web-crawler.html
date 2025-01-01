@@ -60,9 +60,10 @@ def fetch(url):
     </p>
 
     <h3>...For Efficient Recrawling</h3>
-    <p>While I was briefly tempted to call <span class='code'>Doc.should_fetch()</span> (or, perhaps,  <span class='code'>Doc.should_enqueue()</span>) in the process worker to avoid adding empty work to the fetch queue, doing that check in the fetch worker has a benefit of keeping network IO (the potential HEAD request to check if a document has been modified) out of the process worker, which enables more efficient CPU saturation. It also avoids the need for the process worker to add a document that doesn't need fetching back into the process queue; in other words, it keeps the relationship between the workers and queues simple and symmetrical, with the fetch worker only adding to the process queue, and the process worker only adding to the fetch queue.
-    </p>
+    <p>While I was briefly tempted to call <span class='code'>Doc.should_fetch()</span> (or, perhaps,  <span class='code'>Doc.should_enqueue()</span>) in the process worker to avoid adding empty work to the fetch queue, doing that check in the fetch worker has a benefit of keeping network IO (the potential HEAD request to check if a document has been modified) out of the process worker, which enables more efficient CPU saturation. It also avoids the need for the process worker to add a document that doesn't need fetching back into the process queue; in other words, it keeps the relationship between the workers and queues simple and symmetrical, with the fetch worker only adding to the process queue, and the process worker only adding to the fetch queue.</p>
+    <p>This way, I can enqueue any page as the starting point for a recrawl and be sure that only stale pages will get revisited.</p>
 
-    <p>That's all for now! This is far from comprehensive, but it seems head and shoulders above what some code monkeys making half a million USD/year are doing. I'll report back when I have some impressive numbers to justify the click-baity title.</p>
+    <h3>Ta</h3>
+    <p>That's all for now! This is far from comprehensive, but it seems head and shoulders above what some code monkeys making half a million $/year are doing. I'll report back when I have some impressive numbers to justify the click-baity title.</p>
   </body>
 </html>
