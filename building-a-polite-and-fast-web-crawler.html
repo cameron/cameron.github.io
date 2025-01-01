@@ -1,0 +1,68 @@
+<html>
+  <head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Neuton:ital,wght@0,200;0,300;0,400;0,700;0,800;1,400&display=swap" rel="stylesheet">
+    <link href="./css.css" rel="stylesheet">
+    <link href="./print.css" media="print" rel="stylesheet" />
+    <link href="./blog.css" rel="stylesheet" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+  </head>
+  <body>
+    <h1 class='sans'>Building a Polite & Fast Web Crawler</h1>
+    <h2>In that order.</h2>
+    <p>
+      <a href='https://overengineer.dev/'>Dennis Schubert</a>, engineer at Mozilla and noteworthy contributor to <a href='https://github.com/diaspora/diaspora'>diapsora</a>, a distributed, open-source social network, recently observed that 70% of the load on diaspora's servers was coming from poorly-behaved bots that feed the LLMs of a few big outfits. The worst offenders, amounting to 40% of total traffic combined, were OpenAI and Amazon.
+    </p>
+
+    <p>While there are zillions of articles on general crawling etiquette, there are scant millions on how to actually abide by the rules while also crawling quickly and efficiently. Having been working on a hobby crawler recently, the details are top-of-mind, so let's take a look at some that often get glossed over.
+    </p>
+
+    <h3>Technical Context</h3>
+    <p>My queue is a table in Postgres. My crawler is written in Python and uses <span class='code'>gevent</span> for concurrency and asynchronous IO. (Having fallen for implicit async IO before Python3, I never did like <span class='code'>async/await</span>.)</p>
+
+    <h3>Rate Limiting</h3>
+    <p>The bare minimum of polite crawling is rate limiting. If a site doesn't specify a crawl-delay in <span class='code'>robots.txt</span>, I default to one request every five seconds. If I get 429s, I slow down. It's not complicated, in principle.</p>
+    <p>In practice, it's also not complicated. If you limit yourself to one fetch context (worker, thread, or coroutine) per domain, then it's as simple as using a local variable to track how long its been since you made your last request.</p>
+    <p>Of course, this means you'll crawl large, robust sites quite slowly, but I'd rather start with a design that makes polite the default behavior. So, I run one coroutine per domain, and I don't need a complicated queue that keeps track of how many items it's dispensing per domain-time. I don't yet have more than one fetch worker (a single process/machine can handle ~10k domains in parallel), but when I do, I'll distribute domains to workers via a hashing scheme.</p>
+    <p>I keep my worker logic simple by pushing the rate-limiting logic down to just above the network layer, in a wrapper around my call to <span class='code'>requests.get</span>, which keeps track of the last request time in a coroutine-local value. Here's the heart of the fetch worker:
+    </p>
+    <pre>
+def fetch(url):
+  log.info(lib.url.get_path(url))
+
+  if (doc := Doc.get(url)) and not Doc.should_fetch(doc):
+    log.info('  still fresh, skipping')
+
+  elif doc := Doc.fetch(url):
+    log.info('  fetched')
+    Doc.upsert(doc)
+
+  if Doc.should_process(doc):
+    Q.process.nq(doc.url)
+</pre>
+    <p>When a unique domain (partition) is added to the queue, Postgres fires off a <span class='code'>NOTIFY</span> event that the worker is listening for, and creates a new coroutine dedicated to that partition.
+    </p>
+
+    <h3>Respectful Enqueuing, Efficiently</h3>
+    <p>Since <span class='code'>robots.txt/Disallow:</span> is consulted before adding any URL to the queue, and adding URLs to the queue happens in batches that may contain many different domains, I fetch all <span class='code'>robots.txt</span>s for given URLs in parallel inside the queue's enqueue function. This way, I wait for a maximum of one GET request per enqueue batch before I'm ready to filter out disallowed URLs.
+    </p>
+
+    <h3>Minimize Refetching...</h3>
+    <p>While also simple in principle, this is slightly more annoying in practice due to multiple sources of data that need be consulted. Here's a sketch of <span class='code'>Doc.should_fetch()</span>:
+      <ol>
+        <li>No if the last response contains an <span class='code'>expires</span> header value in the future.</li>
+        <li>No if a HEAD request with an <span class='code'>etag</span> or an <span class='code'>if-modified-since</span> header gives a 304.</li>
+        <li>No if the HEAD response headers have a <span class='code'>last-modified</span> value that is older than the last visit (unlikely, but may happen if the server doesn't handle HEAD correctly).</li>
+        <li>No if the last visit was reasonably recent by our own standards.</li>
+        <li>Otherwise, yes!</li>
+      </ol>
+    </p>
+
+    <h3>...For Efficient Recrawling</h3>
+    <p>While I was briefly tempted to call <span class='code'>Doc.should_fetch()</span> (or, perhaps,  <span class='code'>Doc.should_enqueue()</span>) in the process worker to avoid adding empty work to the fetch queue, doing that check in the fetch worker has a benefit of keeping network IO (the potential HEAD request to check if a document has been modified) out of the process worker, which enables more efficient CPU saturation. It also avoids the need for the process worker to add a document that doesn't need fetching back into the process queue; in other words, it keeps the relationship between the workers and queues simple and symmetrical, with the fetch worker only adding to the process queue, and the process worker only adding to the fetch queue.
+    </p>
+
+    <p>That's all for now! This is far from comprehensive, but it seems head and shoulders above what some code monkeys making half a million USD/year are doing. I'll report back when I have some impressive numbers to justify the click-baity title.</p>
+  </body>
+</html>
