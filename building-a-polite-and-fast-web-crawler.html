@@ -12,7 +12,7 @@
     <h1 class='sans'>Building a Polite & Fast Web Crawler</h1>
     <h2>In that order.</h2>
     <p>
-      <a href='https://overengineer.dev/'>Dennis Schubert</a>, engineer at Mozilla and noteworthy contributor to <a href='https://github.com/diaspora/diaspora'>diapsora</a>, a distributed, open-source social network, recently observed that 70% of the load on diaspora's servers was coming from poorly-behaved bots that feed the LLMs of a few big outfits. The worst offenders, amounting to 40% of total traffic combined, were OpenAI and Amazon.
+      <a href='https://overengineer.dev/'>Dennis Schubert</a>, engineer at Mozilla and noteworthy contributor to <a href='https://github.com/diaspora/diaspora'>diaspora</a>, a distributed, open-source social network, recently observed that 70% of the load on diaspora's servers was coming from poorly-behaved bots that feed the LLMs of a few big outfits. The worst offenders, amounting to 40% of total traffic combined, were OpenAI and Amazon.
     </p>
 
     <p>While there are zillions of articles on general crawling etiquette, there are scant millions on how to actually abide by the rules while also crawling quickly and efficiently. Having been working on a hobby crawler recently, the details are top-of-mind, so let's take a look at some that often get glossed over.
@@ -45,16 +45,16 @@ def fetch(url):
     </p>
 
     <h3>Respectful Enqueuing, Efficiently</h3>
-    <p>Since <span class='code'>robots.txt/Disallow:</span> is consulted before adding any URL to the queue, and adding URLs to the queue happens in batches that may contain many different domains, I fetch all <span class='code'>robots.txt</span>s for given URLs in parallel inside the queue's enqueue function. This way, I wait for a maximum of one GET request per enqueue batch before I'm ready to filter out disallowed URLs.
+    <p>Since <span class='code'>robots.txt/Disallow:</span> is consulted before adding any URL to the queue, and adding URLs to the queue happens in batches that may contain many different domains, I fetch all <span class='code'>robots.txt</span>s for the domains of a given URL batch in parallel inside the queue's enqueue function. This way, I wait for a maximum of one GET request per enqueue batch before I'm ready to filter out disallowed URLs.
     </p>
 
     <h3>Minimize Refetching...</h3>
     <p>While also simple in principle, this is slightly more annoying in practice due to multiple sources of data that need be consulted. Here's a sketch of <span class='code'>Doc.should_fetch()</span>:
       <ol>
-        <li>No if the last response contains an <span class='code'>expires</span> header value in the future.</li>
-        <li>No if a HEAD request with an <span class='code'>etag</span> or an <span class='code'>if-modified-since</span> header gives a 304.</li>
-        <li>No if the HEAD response headers have a <span class='code'>last-modified</span> value that is older than the last visit (unlikely, but may happen if the server doesn't handle HEAD correctly).</li>
-        <li>No if the last visit was reasonably recent by our own standards.</li>
+        <li>Not if the last response contains an <span class='code'>expires</span> header value in the future.</li>
+        <li>Not if a HEAD request with an <span class='code'>etag</span> or an <span class='code'>if-modified-since</span> header gives a 304.</li>
+        <li>Not if the HEAD response headers have a <span class='code'>last-modified</span> value that is older than the last visit (unlikely, but may happen if the server doesn't handle HEAD correctly).</li>
+        <li>Not if the last visit was reasonably recent by our own standards.</li>
         <li>Otherwise, yes!</li>
       </ol>
     </p>

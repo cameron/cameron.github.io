@@ -1,5 +1,7 @@
 body {
-  width: 650px;
+  max-width: 650px;
+  width: 90%;
+  padding: 1em;
 }
 
 .code {
