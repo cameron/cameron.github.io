@@ -23,7 +23,7 @@
 
     <h3>Rate Limiting</h3>
     <p>The bare minimum of polite crawling is rate limiting. If a site doesn't specify a crawl-delay in <span class='code'>robots.txt</span>, I default to one request every five seconds. If I get 429s, I slow down. It's not complicated, in principle.</p>
-    <p>In practice, it's also not complicated. If you limit yourself to one fetch context (worker, thread, or coroutine) per domain, then it's as simple as using a local variable to track how long its been since you made your last request.</p>
+    <p>In practice, it's also not complicated. If you limit yourself to one fetch context (worker, thread, or coroutine) per domain, then it's as simple as using a local variable to track how long its been since you made your last request, and sleeping for the remainder of the minimum interval before initiating your next request.</p>
     <p>Of course, this means you'll crawl large, robust sites quite slowly, but I'd rather start with a design that makes polite the default behavior. So, I run one coroutine per domain, and I don't need a complicated queue that keeps track of how many items it's dispensing per domain-time. I don't yet have more than one fetch worker (a single process/machine can handle ~10k domains in parallel), but when I do, I'll distribute domains to workers via a hashing scheme.</p>
     <p>I keep my worker logic simple by pushing the rate-limiting logic down to just above the network layer, in a wrapper around my call to <span class='code'>requests.get</span>, which keeps track of the last request time in a coroutine-local value. Here's the heart of the fetch worker:
     </p>
