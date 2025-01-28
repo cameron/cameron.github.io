@@ -63,8 +63,8 @@ def fetch(url):
     <p>While I was briefly tempted to call <span class='code'>Doc.should_fetch()</span> (or, perhaps,  <span class='code'>Doc.should_enqueue()</span>) in the process worker to avoid adding empty work to the fetch queue, doing that check in the fetch worker has a benefit of keeping network IO (the potential HEAD request to check if a document has been modified) out of the process worker, which enables more efficient CPU saturation. </p>
     <p>It also keeps the relationship between the workers and queues simple. If the process worker wanted to skip the fetch queue for fresh docs, it would have to enqueue them in the process queue, which creates another entrypoint into the process queue, and the potential for duplicate logic.</p>
 
-    <h3>And How</h3>
-    <p>The result is a clear division of logic and resource utilization that crawls with respect for rate limits, freshness, and necessity.</p>
+    <h3>And How!</h3>
+    <p>I like the neat division of logic and resource utilization; I like crawling with respect for rate limits, freshness, and need.</p>
 
     <p>This is far from comprehensive, but it seems head and shoulders above what some code monkeys making half a million $/year are doing. I'll report back when I have some impressive numbers to justify the click-baity title.</p>
   </body>
